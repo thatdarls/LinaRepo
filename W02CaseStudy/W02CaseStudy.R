@@ -24,3 +24,4 @@ year_1952 <-  ggplot(data=gapminder2, aes(x=lifeExp, y=gdpPercap, by=country)) +
               theme_bw() 
 
 year_1952
+
