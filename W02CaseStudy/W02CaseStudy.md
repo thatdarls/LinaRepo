@@ -1,7 +1,7 @@
 ---
 title: "W02 Case Study: Wealth and Life"
 author: "Alina Rojas"
-date: "September 27, 2021"
+date: "October 01, 2021"
 output:
   html_document:  
     keep_md: true
@@ -37,17 +37,21 @@ gapminder2 <- gapminder[!gapminder$country == 'Kuwait',]
 # View the new set without Kuwait.
 View(gapminder2)
 
-## Load ggplot2.
-
-year_1952 <-  ggplot(data=gapminder2, aes(x=lifeExp, y=gdpPercap, by=country)) +
-              geom_point(aes(color=continent, size = pop))  +
-              guides(size = guide_legend(order = 1), color = guide_legend(order = 2)) +
-              scale_y_continuous(trans = "sqrt") +
-              labs(size = "Population(100k)", x = "Life Expectancy", y = "GDP per Capita") +
-              theme_bw() 
-
-year_1952
+## Load ggplot2. 
+## Use facet_wrap to create multiple graphs depending on year.
+ggplot(data=gapminder2, aes(x=lifeExp, y=gdpPercap, by=country)) +
+  geom_point(aes(color=continent, size = pop/100000))  +
+  guides(size = guide_legend(order = 1), color = guide_legend(order = 2)) +
+  scale_y_continuous(trans = "sqrt") +
+  labs(size = "Population(100k)", x = "Life Expectancy", y = "GDP per Capita") +
+  theme_bw() +
+  facet_wrap(~year)
 ```
 
 ![](W02CaseStudy_files/figure-html/unnamed-chunk-2-2.png)<!-- -->
+
+```r
+##Finalize report by saving plot as .png
+ggsave("W02CaseStudy.png", width = 15)
+```
 
