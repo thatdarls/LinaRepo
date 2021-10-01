@@ -39,7 +39,7 @@ ggplot(data=gapminder2, aes(x=lifeExp, y=gdpPercap, by=country)) +
   scale_y_continuous(trans = "sqrt") +
   labs(size = "Population(100k)", x = "Life Expectancy", y = "GDP per Capita") +
   theme_bw() +
-  facet_wrap(~year)
+  facet_wrap(~year, nrow = 1)
 
 ##Finalize report by saving plot as .png
 ggsave("W02CaseStudy.png", width = 15)

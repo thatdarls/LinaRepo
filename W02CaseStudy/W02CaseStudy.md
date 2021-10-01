@@ -34,9 +34,6 @@ ggplot(data=gapminder, aes(x=year, y=gdpPercap, by=country)) +
 ## Remove Kuwait from the data frame.
 gapminder2 <- gapminder[!gapminder$country == 'Kuwait',]
 
-# View the new set without Kuwait.
-View(gapminder2)
-
 ## Load ggplot2. 
 ## Use facet_wrap to create multiple graphs depending on year.
 ggplot(data=gapminder2, aes(x=lifeExp, y=gdpPercap, by=country)) +
@@ -45,7 +42,7 @@ ggplot(data=gapminder2, aes(x=lifeExp, y=gdpPercap, by=country)) +
   scale_y_continuous(trans = "sqrt") +
   labs(size = "Population(100k)", x = "Life Expectancy", y = "GDP per Capita") +
   theme_bw() +
-  facet_wrap(~year)
+  facet_wrap(~year, nrow = 1)
 ```
 
 ![](W02CaseStudy_files/figure-html/unnamed-chunk-2-2.png)<!-- -->
