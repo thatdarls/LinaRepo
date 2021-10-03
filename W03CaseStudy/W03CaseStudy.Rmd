@@ -1,0 +1,48 @@
+---
+title: "W03 Case Study: Give Your Visualization Wings to Fly"
+author: "Alina Rojas"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html_document:  
+    keep_md: true
+    toc: true
+    toc_float: true
+    code_folding: hide
+    fig_height: 6
+    fig_width: 12
+    fig_align: 'center'
+---
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r load_libraries, include=FALSE}
+# Use this R-Chunk to load all your libraries!
+##Load necessary libraries.
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(nycflights13)
+```
+
+## Data Visualization
+
+```{r plot_data}
+# Use this R-Chunk to plot & visualize your data!
+
+##Install reprex package for debugging help.
+
+##View the flights dataframe.
+View(flights)
+
+##Filter through the data so that only JFK, LGA, and EWR show up.
+newFlight <- flights %>%
+                filter(dep_time <=1200)
+
+ggplot(data = newFlight, mapping = aes(x = origin, y = dep_delay)) +
+  geom_boxplot()
+
+```
+
+## Conclusions
