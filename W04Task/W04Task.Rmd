@@ -22,15 +22,62 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ##Load necessary libraries.
 library(tidyverse)
 library(readr)
+library(dplyr)
 
 ```
 
 ```{r load_data}
 # Use this R-Chunk to import all your datasets!
+##Load the data from Github.
 stock_data <- read_csv(url("https://github.com/byuistats/data/raw/master/Dart_Expert_Dow_6month_anova/Dart_Expert_Dow_6month_anova.csv"))
 ```
 
+## Data Wrangling
 
+```{r tidy_data, show_col_types = FALSE}
+# Use this R-Chunk to clean & wrangle your data!
 
+##First, separate the contest_period into separate columns.
+stock_data <- stock_data %>%
+  separate(contest_period, into = c("begin_date", "end_date"), sep = "-")
+##Second, separate the end date to month and year.
+stock_data <- stock_data %>%
+  separate(end_date, into = c("end_month", "end_year"), sep = -4)
+##Third, make sure that February mispells get replaced.
+stock_data$end_month <- replace(stock_data$end_month, stock_data$end_month == "Febuary", "February")
+##Make sure that December mispells get replaced.
+stock_data$end_month <- replace(stock_data$end_month, stock_data$end_month == "Dec", "December")
+##Dismiss the beginning column.
+stock_data <- stock_data %>%
+  select(end_month, end_year, variable, value)
+##Save  your rds data.
+saveRDS(stock_data, "tidy_data.rds")
 
 ```
+
+## Data Visualization
+The data shows the different percentiles provided by the boxplot graphing option. Points throughout the years and summarized through color based on the variable.
+```{r plot_data}
+stock_plot <- 
+  ggplot(stock_data, aes(x=end_year, y=value, color = variable)) + 
+  geom_boxplot(aes(color = variable)) +
+  theme_minimal() +
+  xlab("Year") +
+  ylab("Six Month Returns") +
+  labs(color = "Variable")
+
+stock_plot
+```
+
+```{r}
+##Filter data so only those matching the DJIA variable appear.
+djia_table <- filter(stock_data, variable == "DJIA")
+##Create a summary of the djia table.
+djia_table <- summarise(djia_table, end_month, end_year, value)
+##Pivot the table.
+djia_table <- djia_table %>% pivot_wider(names_from = end_year, values_from = value)
+djia_table <- djia_table[order(djia_table$end_month),]
+##Display final table.
+djia_table
+```
+
