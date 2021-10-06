@@ -30,16 +30,6 @@ library(readr)
 stock_data <- read_csv(url("https://github.com/byuistats/data/raw/master/Dart_Expert_Dow_6month_anova/Dart_Expert_Dow_6month_anova.csv"))
 ```
 
-## Data Wrangling
-
-```{r tidy_data, show_col_types = FALSE}
-# Use this R-Chunk to clean & wrangle your data!
-stock_data <- stock_data %>%
-  separate(contest_period, into = c("begin_date", "end_date"), sep = "-")
-
-stock_data <- stock_data %>%
-  separate(end_date, into = c("month", "year_end"), sep = -4)
-
 
 
 
