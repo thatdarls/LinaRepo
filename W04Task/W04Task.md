@@ -1,7 +1,7 @@
 ---
 title: "W04 Task: Clean and Reformat (aka tidy) Stock Data"
 author: "Alina Rojas"
-date: "`r format(Sys.time(), '%B %d, %Y')`"
+date: "October 06, 2021"
 output:
   html_document:  
     keep_md: true
@@ -13,26 +13,20 @@ output:
     fig_align: 'center'
 ---
 
-```{r, echo=FALSE}
-knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
-```
 
-```{r load_libraries, include=FALSE}
-# Use this R-Chunk to load all your libraries!
-##Load necessary libraries.
-library(tidyverse)
-library(readr)
 
-```
 
-```{r load_data}
+
+
+```r
 # Use this R-Chunk to import all your datasets!
 stock_data <- read_csv(url("https://github.com/byuistats/data/raw/master/Dart_Expert_Dow_6month_anova/Dart_Expert_Dow_6month_anova.csv"))
 ```
 
 ## Data Wrangling
 
-```{r tidy_data, show_col_types = FALSE}
+
+```r
 # Use this R-Chunk to clean & wrangle your data!
 stock_data <- stock_data %>%
   separate(contest_period, into = c("begin_date", "end_date"), sep = "-")
@@ -41,6 +35,4 @@ stock_data <- stock_data %>%
   separate(end_date, into = c("month", "year_end"), sep = -4)
 
 saveRDS(stock_data, "tidy_contest_period.rds")
-
-
 ```
