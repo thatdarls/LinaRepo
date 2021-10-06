@@ -1,0 +1,68 @@
+---
+title: "W04 Task: Clean and Reformat (aka tidy) Stock Data"
+author: "Alina Rojas"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html_document:  
+    keep_md: true
+    toc: true
+    toc_float: true
+    code_folding: hide
+    fig_height: 6
+    fig_width: 12
+    fig_align: 'center'
+---
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r load_libraries, include=FALSE}
+# Use this R-Chunk to load all your libraries!
+##Load necessary libraries.
+library(tidyverse)
+library(readr)
+
+```
+
+```{r load_data}
+# Use this R-Chunk to import all your datasets!
+stock_data <- read_csv(url("https://github.com/byuistats/data/raw/master/Dart_Expert_Dow_6month_anova/Dart_Expert_Dow_6month_anova.csv"))
+```
+
+## Data Wrangling
+
+```{r tidy_data}
+# Use this R-Chunk to clean & wrangle your data!
+stock_data <- stock_data %>%
+  separate(contest_period, into = c("begin_date", "end_date"), sep = "-")
+
+stock_data <- stock_data %>%
+  separate(end_date, into = c("month", "year_end"), sep = -4)
+
+saveRDS(stock_data, "tidy_contest_period.rds")
+
+df <- new_data %>% group_by(month) %>% summarise(column = sum(value))
+View(df)
+
+```
+
+## Data Visualization
+
+```{r plot_data}
+# Use this R-Chunk to plot & visualize your data!
+ggplot(data = new_data, aes(x = month, y = value, color = variable, group = variable)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap(~year_end)
+                      
+view(new_data)
+```
+
+```{r plot_data_table}
+six_months_table <- new_data %>% select(-c("month_end", "variable"))
+six_months_pivot <- six_months_table %>% pivot_wider(names_from = year_end, values_from = value)
+
+View(six_months_table)
+```
+## Conclusions
