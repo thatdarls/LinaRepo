@@ -269,9 +269,7 @@ stock_data &lt;- stock_data %&gt;%
   separate(contest_period, into = c(&quot;begin_date&quot;, &quot;end_date&quot;), sep = &quot;-&quot;)
 
 stock_data &lt;- stock_data %&gt;%
-  separate(end_date, into = c(&quot;month&quot;, &quot;year_end&quot;), sep = -4)
-
-saveRDS(stock_data, &quot;tidy_contest_period.rds&quot;)</code></pre>
+  separate(end_date, into = c(&quot;month&quot;, &quot;year_end&quot;), sep = -4)</code></pre>
 </div>
 
 

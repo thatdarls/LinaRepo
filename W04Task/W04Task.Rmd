@@ -40,7 +40,7 @@ stock_data <- stock_data %>%
 stock_data <- stock_data %>%
   separate(end_date, into = c("month", "year_end"), sep = -4)
 
-saveRDS(stock_data, "tidy_contest_period.rds")
+
 
 
 ```
